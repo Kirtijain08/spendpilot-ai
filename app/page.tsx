@@ -35,9 +35,12 @@ export default function Home() {
 
         <div className="mt-10 flex gap-4">
 
-          <button className="rounded-xl bg-white px-6 py-3 font-medium text-black transition hover:scale-105">
-            Start Free Audit
-          </button>
+          <a
+  href="/audit"
+  className="rounded-xl bg-white px-6 py-3 font-medium text-black transition hover:scale-105"
+>
+  Start Free Audit
+</a>
 
           <button className="rounded-xl border border-white/20 px-6 py-3 transition hover:bg-white hover:text-black">
             View Demo
