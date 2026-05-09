@@ -128,3 +128,17 @@
     @apply font-sans;
   }
 }
+.loading-bar {
+  width: 0%;
+  animation: loading 3.5s linear forwards;
+}
+
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
