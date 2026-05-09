@@ -1,9 +1,14 @@
 "use client";
 
+import { supabase } from "@/lib/supabase";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 export default function AuditPage() {
+  const [email, setEmail] = useState("");
+const [companyName, setCompanyName] = useState("");
+const [role, setRole] = useState("");
   const [tool, setTool] = useState("");
   const [plan, setPlan] = useState("");
   const [monthlySpend, setMonthlySpend] = useState("");
@@ -21,25 +26,80 @@ export default function AuditPage() {
     setTeamSize(parsed.teamSize || "");
   }
 }, []);
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+const formData = new FormData(
+  e.currentTarget as HTMLFormElement
+);
 
-    const auditData = {
+if (formData.get("website")) {
+  return;
+}
+  const auditData = {
   tool,
   plan,
   monthlySpend,
   teamSize,
+  email,
+  companyName,
+  role,
 };
+  localStorage.setItem(
+    "audit-data",
+    JSON.stringify(auditData)
+  );
 
-localStorage.setItem(
-  "audit-data",
-  JSON.stringify(auditData)
-);
+  let recommendedPlan = plan;
+  let estimatedSavings = 0;
 
-console.log(auditData);
-
-    router.push("/loading-screen");
+  if (
+    tool.toLowerCase() === "chatgpt" &&
+    plan.toLowerCase().includes("team") &&
+    Number(teamSize) <= 2
+  ) {
+    recommendedPlan = "ChatGPT Plus";
+    estimatedSavings = 30;
   }
+
+  if (
+    tool.toLowerCase() === "cursor" &&
+    plan.toLowerCase().includes("business")
+  ) {
+    recommendedPlan = "Cursor Pro";
+    estimatedSavings = 20;
+  }
+
+  await supabase.from("audits").insert([
+  {
+    tool,
+    plan,
+    monthly_spend: Number(monthlySpend),
+    team_size: Number(teamSize),
+
+    recommended_plan: recommendedPlan,
+    estimated_savings: estimatedSavings,
+
+    email,
+    company_name: companyName,
+    role,
+  },
+]);
+
+// SEND EMAIL HERE
+await fetch("/api/send", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email,
+    savings: estimatedSavings,
+  }),
+});
+
+router.push("/loading-screen");
+  router.push("/loading-screen");
+}
 
   return (
   <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-6 text-white">
@@ -152,7 +212,57 @@ console.log(auditData);
           />
 
         </div>
+{/* Email */}
+<div>
 
+  <label className="mb-2 block text-sm text-gray-300">
+    Work Email
+  </label>
+
+  <input
+    type="email"
+    placeholder="you@company.com"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none transition focus:border-green-400"
+    required
+  />
+
+</div>
+
+{/* Company */}
+<div>
+
+  <label className="mb-2 block text-sm text-gray-300">
+    Company Name
+  </label>
+
+  <input
+    type="text"
+    placeholder="Acme Inc."
+    value={companyName}
+    onChange={(e) => setCompanyName(e.target.value)}
+    className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none transition focus:border-green-400"
+  />
+
+</div>
+
+{/* Role */}
+<div>
+
+  <label className="mb-2 block text-sm text-gray-300">
+    Your Role
+  </label>
+
+  <input
+    type="text"
+    placeholder="Founder / Engineer / Ops"
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+    className="w-full rounded-2xl border border-white/10 bg-black/40 px-5 py-4 outline-none transition focus:border-green-400"
+  />
+
+</div>
         {/* Button */}
         <button
           type="submit"

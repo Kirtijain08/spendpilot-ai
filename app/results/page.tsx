@@ -95,249 +95,225 @@ if (spend > 500) {
   }
 
   return (
-    <main className="min-h-screen bg-black px-6 py-20 text-white">
+  <main className="min-h-screen bg-black px-6 py-20 text-white">
+    <div className="mx-auto max-w-5xl">
 
-      <div className="mx-auto max-w-5xl">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="rounded-3xl border border-white/10 bg-white/5 p-10"
+      >
 
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  className="rounded-3xl border border-white/10 bg-white/5 p-10"
->
-          <div className="mb-8">
+        {/* Header */}
+        <div className="mb-8">
 
-            <p className="text-sm uppercase tracking-widest text-gray-400">
-              Audit Result
-            </p>
+          <p className="text-sm uppercase tracking-widest text-gray-400">
+            Audit Result
+          </p>
 
-            <h1 className="mt-4 text-5xl font-bold">
-              You Could Save
-            </h1>
-<p className="mt-4 text-lg text-gray-400"></p>
-<div className="mt-10 grid gap-6 md:grid-cols-2">
+          <h1 className="mt-4 text-5xl font-bold">
+            You Could Save
+          </h1>
 
-  {/* Optimization Score */}
-  <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-6">
+          {/* Score Cards */}
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
 
-    <p className="text-sm uppercase tracking-widest text-green-300">
-      Optimization Score
-    </p>
+            <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-6">
 
-    <div className="mt-4 text-5xl font-bold text-green-400">
-      {optimizationScore}%
-    </div>
+              <p className="text-sm uppercase tracking-widest text-green-300">
+                Optimization Score
+              </p>
 
-    <p className="mt-4 text-gray-300">
-      Your stack has strong optimization potential.
-    </p>
+              <div className="mt-4 text-5xl font-bold text-green-400">
+                {optimizationScore}%
+              </div>
 
-  </div>
+              <p className="mt-4 text-gray-300">
+                Your stack has strong optimization potential.
+              </p>
 
-  {/* Risk Level */}
-  <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6">
-
-    <p className="text-sm uppercase tracking-widest text-red-300">
-      Overspending Risk
-    </p>
-
-    <div className="mt-4 text-5xl font-bold text-red-400">
-      {riskLevel}
-    </div>
-
-    <p className="mt-4 text-gray-300">
-      Current subscription structure may contain inefficiencies.
-    </p>
-
-  </div>
-
-</div>
-            <div className="mt-6 text-7xl font-bold text-green-400">
-             <motion.span
-  initial={{ scale: 0.8, opacity: 0 }}
-  animate={{ scale: 1, opacity: 1 }}
-  transition={{ duration: 0.5 }}
->
-  ${estimatedSavings}
-</motion.span>
-              <span className="text-2xl text-gray-400">
-                /month
-              </span>
             </div>
 
-            <p className="mt-4 text-lg text-gray-400">
-              Estimated annual savings:
-              <span className="ml-2 font-semibold text-white">
-                ${estimatedSavings * 12}
-              </span>
-            </p>
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6">
 
+              <p className="text-sm uppercase tracking-widest text-red-300">
+                Overspending Risk
+              </p>
 
-          {/* Current Stack */}
-          <div className="grid gap-6 md:grid-cols-2">
+              <div className="mt-4 text-5xl font-bold text-red-400">
+                {riskLevel}
+              </div>
 
-            <div className="rounded-2xl border border-white/10 p-6">
+              <p className="mt-4 text-gray-300">
+                Current subscription structure may contain inefficiencies.
+              </p>
 
-              <h2 className="text-xl font-semibold">
-                Current Setup
-              </h2>
+            </div>
 
-              <div className="mt-6 space-y-3 text-gray-300">
+          </div>
 
-                <p>
-                  Tool:
-                  <span className="ml-2 text-white">
-                    {auditData.tool}
-                  </span>
-                </p>
+          {/* Savings */}
+          <div className="mt-10 text-7xl font-bold text-green-400">
 
-                <p>
-                  Plan:
-                  <span className="ml-2 text-white">
-                    {auditData.plan}
-                  </span>
-                </p>
+            <motion.span
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              ${estimatedSavings}
+            </motion.span>
 
-                <p>
-                  Monthly Spend:
-                  <span className="ml-2 text-white">
-                    ${monthlySpend}
-                  </span>
-                </p>
+            <span className="text-2xl text-gray-400">
+              /month
+            </span>
 
-                <p>
-                  Team Size:
-                  <span className="ml-2 text-white">
-                    {auditData.teamSize}
-                  </span>
-                </p>
+          </div>
+
+          <p className="mt-4 text-lg text-gray-400">
+            Estimated annual savings:
+            <span className="ml-2 font-semibold text-white">
+              ${estimatedSavings * 12}
+            </span>
+          </p>
+
+        </div>
+
+        {/* Main Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+
+          {/* Current Setup */}
+          <div className="rounded-2xl border border-white/10 p-6">
+
+            <h2 className="text-xl font-semibold">
+              Current Setup
+            </h2>
+
+            <div className="mt-6 space-y-3 text-gray-300">
+
+              <p>
+                Tool:
+                <span className="ml-2 text-white">
+                  {auditData.tool}
+                </span>
+              </p>
+
+              <p>
+                Plan:
+                <span className="ml-2 text-white">
+                  {auditData.plan}
+                </span>
+              </p>
+
+              <p>
+                Monthly Spend:
+                <span className="ml-2 text-white">
+                  ${monthlySpend}
+                </span>
+              </p>
+
+              <p>
+                Team Size:
+                <span className="ml-2 text-white">
+                  {auditData.teamSize}
+                </span>
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* Recommendation */}
+          <div className="rounded-2xl border border-green-500/30 bg-green-500/10 p-6">
+
+            <h2 className="text-xl font-semibold text-green-400">
+              Recommendation
+            </h2>
+
+            <div className="mt-6 space-y-4">
+
+              <p className="text-lg">
+                Switch to:
+              </p>
+
+              <div className="text-3xl font-bold">
+                {recommendedPlan}
+              </div>
+
+              <p className="text-gray-300">
+                Based on your team size and usage pattern,
+                this plan appears more cost-efficient.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Spend Comparison */}
+        <div className="mt-10 rounded-2xl border border-white/10 p-6">
+
+          <h2 className="text-2xl font-semibold">
+            Spend Comparison
+          </h2>
+
+          <p className="mt-2 text-gray-400">
+            Estimated monthly spend before and after optimization.
+          </p>
+
+          <div className="mt-10 space-y-6">
+
+            <div>
+
+              <div className="mb-2 flex items-center justify-between">
+
+                <span className="text-gray-300">
+                  Current Spend
+                </span>
+
+                <span className="font-semibold">
+                  ${monthlySpend}
+                </span>
+
+              </div>
+
+              <div className="h-4 overflow-hidden rounded-full bg-white/10">
+
+                <div
+                  className="h-full rounded-full bg-red-400"
+                  style={{ width: "100%" }}
+                />
 
               </div>
 
             </div>
-            {/* Spend Comparison */}
-<div className="mt-10 rounded-2xl border border-white/10 p-6">
 
-  <h2 className="text-2xl font-semibold">
-    Spend Comparison
-  </h2>
+            <div>
 
-  <p className="mt-2 text-gray-400">
-    Estimated monthly spend before and after optimization.
-  </p>
+              <div className="mb-2 flex items-center justify-between">
 
-  <div className="mt-10 space-y-6">
+                <span className="text-gray-300">
+                  Optimized Spend
+                </span>
 
-    {/* Current Spend */}
-    <div>
+                <span className="font-semibold">
+                  ${monthlySpend - estimatedSavings}
+                </span>
 
-      <div className="mb-2 flex items-center justify-between">
+              </div>
 
-        <span className="text-gray-300">
-          Current Spend
-        </span>
+              <div className="h-4 overflow-hidden rounded-full bg-white/10">
 
-        <span className="font-semibold">
-          ${monthlySpend}
-        </span>
-
-      </div>
-
-      <div className="h-4 overflow-hidden rounded-full bg-white/10">
-
-        <div
-          className="h-full rounded-full bg-red-400"
-          style={{ width: "100%" }}
-        />
-
-      </div>
-
-    </div>
-
-    {/* Optimized Spend */}
-    <div>
-
-      <div className="mb-2 flex items-center justify-between">
-
-        <span className="text-gray-300">
-          Optimized Spend
-        </span>
-
-        <span className="font-semibold">
-          ${monthlySpend - estimatedSavings}
-        </span>
-
-      </div>
-
-      <div className="h-4 overflow-hidden rounded-full bg-white/10">
-
-        <div
-          className="h-full rounded-full bg-green-400"
-          style={{
-            width: `${
-              ((monthlySpend - estimatedSavings) /
-                monthlySpend) *
-              100
-            }%`,
-          }}
-        />
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-{/* AI Insight */}
-<div className="mt-10 rounded-2xl border border-blue-500/20 bg-blue-500/10 p-6">
-
-  <p className="text-sm uppercase tracking-widest text-blue-300">
-    AI Insight
-  </p>
-
-  <h2 className="mt-4 text-2xl font-bold">
-    Your Stack Shows Optimization Potential
-  </h2>
-
-  <p className="mt-4 max-w-3xl text-gray-300">
-    {spend > 300
-  ? "Your organization appears to be spending significantly on AI tooling. Consolidating plans and optimizing subscription tiers could reduce recurring SaaS costs substantially."
-  : "Your stack is reasonably optimized, but there are still opportunities to reduce unnecessary spending and improve operational efficiency."}
-  </p>
-
-</div>
-<div className="mt-10 flex justify-center">
-
-  <a
-    href="/audit"
-    className="rounded-xl bg-white px-6 py-3 font-medium text-black transition hover:scale-105"
-  >
-    Run Another Audit
-  </a>
-
-</div>
-            {/* Recommendation */}
-            <div className="rounded-2xl border border-green-500/30 bg-green-500/10 p-6">
-
-              <h2 className="text-xl font-semibold text-green-400">
-                Recommendation
-              </h2>
-
-              <div className="mt-6 space-y-4">
-
-                <p className="text-lg">
-                  Switch to:
-                </p>
-
-                <div className="text-3xl font-bold">
-                  {recommendedPlan}
-                </div>
-
-                <p className="text-gray-300">
-                  Based on your team size and usage pattern,
-                  this plan appears more cost-efficient.
-                </p>
+                <div
+                  className="h-full rounded-full bg-green-400"
+                  style={{
+                    width: `${
+                      ((monthlySpend - estimatedSavings) /
+                        monthlySpend) * 100
+                    }%`,
+                  }}
+                />
 
               </div>
 
@@ -346,10 +322,41 @@ if (spend > 500) {
           </div>
 
         </div>
-        </motion.div>
 
-      </div>
+        {/* AI Insight */}
+        <div className="mt-10 rounded-2xl border border-blue-500/20 bg-blue-500/10 p-6">
 
-    </main>
-  );
+          <p className="text-sm uppercase tracking-widest text-blue-300">
+            AI Insight
+          </p>
+
+          <h2 className="mt-4 text-2xl font-bold">
+            Your Stack Shows Optimization Potential
+          </h2>
+
+          <p className="mt-4 max-w-3xl text-gray-300">
+            {spend > 300
+              ? "Your organization appears to be spending significantly on AI tooling. Consolidating plans and optimizing subscription tiers could reduce recurring SaaS costs substantially."
+              : "Your stack is reasonably optimized, but there are still opportunities to reduce unnecessary spending and improve operational efficiency."}
+          </p>
+
+        </div>
+
+        {/* CTA */}
+        <div className="mt-10 flex justify-center">
+
+          <a
+            href="/audit"
+            className="rounded-xl bg-white px-6 py-3 font-medium text-black transition hover:scale-105"
+          >
+            Run Another Audit
+          </a>
+
+        </div>
+
+      </motion.div>
+
+    </div>
+  </main>
+);
 }
